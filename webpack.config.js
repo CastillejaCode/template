@@ -1,4 +1,6 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
 	entry: './src/index.ts',
@@ -19,6 +21,10 @@ module.exports = {
 				use: 'ts-loader',
 				exclude: /node_modules/,
 			},
+			{
+				test: /\.html$/i,
+				loader: 'html-loader',
+			},
 		],
 	},
 	resolve: {
@@ -28,4 +34,11 @@ module.exports = {
 		filename: 'bundle.js',
 		path: path.resolve(__dirname, 'dist'),
 	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			title: 'Custom template',
+			favicon: './src/water-solid.svg',
+			template: './src/index.html',
+		}),
+	],
 };
